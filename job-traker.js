@@ -1,5 +1,5 @@
 let totalJobCollection = getElement("job-cards").children;
-let totalInterviewCollection = [0];
+let totalInterviewCollection = [];
 let totalRejectedCollection = [];
 
 getElement("total-jobs").innerText = totalJobCollection.length;
@@ -13,6 +13,7 @@ function toggleStyle(id) {
     getElement("menu-item-all").classList.add("menu-toggle");
     getElement("menu-item-interview").classList.remove("menu-toggle");
     getElement("menu-item-rejected").classList.remove("menu-toggle");
+    getElement("toggling-container").classList.add("hidden")
 
     function addAllJobs() {
       for (let i = 0; i < totalJobCollection.length; i++) {
@@ -35,8 +36,11 @@ function toggleStyle(id) {
         let interviewContainer = getElement("job-cards");
         interviewContainer.append(emtyJob);
         emtyJob.style.display = "block";
+        getElement("emty-job-rejected").classList.add("hidden")
       } else {
         getElement("emty-job").style.display = "none";
+        getElement("emty-job-interview").classList.remove("hidden");
+        getElement("toggling-container").classList.remove("hidden")
         for (const item of totalInterviewCollection) {
         }
 
@@ -62,10 +66,13 @@ function toggleStyle(id) {
         let rejectedContainer = getElement("job-cards");
         rejectedContainer.append(emtyJob);
         emtyJob.style.display = "block";
+        getElement("emty-job-interview").classList.add("hidden")
       } else {
         getElement("emty-job").style.display = "none";
+        getElement("emty-job-rejected").classList.remove("hidden");
+        getElement("toggling-container").classList.remove("hidden")
         for (const item of totalRejectedCollection) {
-            
+
         }
         
       }
