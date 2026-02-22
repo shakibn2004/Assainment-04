@@ -1,0 +1,18 @@
+.menu-toggle {
+    background: #3B82F6;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.interview-status {
+    padding: 8px 12px;
+    color: #10B981;
+    border: 1px solid #10B981;
+    border-radius: 8px;
+}
+.rejected-status {
+    padding: 8px 12px;
+    color: #EF4444;
+    border: 1px solid #EF4444;
+    border-radius: 8px;
+}
