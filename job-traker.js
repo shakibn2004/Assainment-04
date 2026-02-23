@@ -1,83 +1,94 @@
-let totalJobCollection = getElement("job-cards").children;
 let totalInterviewCollection = [];
 let totalRejectedCollection = [];
+let currentStatus = "";
 
-getElement("total-jobs").innerText = totalJobCollection.length;
-getElement("interview-jobs").innerText = totalInterviewCollection.length;
-getElement("rejected-jobs").innerText = totalRejectedCollection.length;
+let totalJobCollection = getElement("job-cards");
+let totalJobs =  document.getElementById("total-jobs");
+let totalInterview = document.getElementById("interview-jobs");
+let totalRejected = document.getElementById("rejected-jobs");
 
-// button toggle
+const menuItemAll = document.getElementById("menu-item-all");
+const menuItemInterview = document.getElementById("menu-item-interview");
+const menuItemRejected = document.getElementById("menu-item-rejected"); 
+
+const filterContainer = document.getElementById("filter-container");
+const jobsCards = document.getElementById("job-cards");
+const mainContainer = document.querySelector("main");
+
+
+function countJobs() {
+    totalJobs.innerText = totalJobCollection.classList.length;
+    totalInterview.innerText = totalInterviewCollection.length;
+    totalRejected.innerText = totalRejectedCollection.length;
+
+}
+countJobs()
 
 function toggleStyle(id) {
-  if (id === "menu-item-all") {
-    getElement("menu-item-all").classList.add("menu-toggle");
-    getElement("menu-item-interview").classList.remove("menu-toggle");
-    getElement("menu-item-rejected").classList.remove("menu-toggle");
-    getElement("toggling-container").classList.add("hidden")
+    menuItemAll.classList.remove("menu-toggle");
+    menuItemInterview.classList.remove("menu-toggle");
+    menuItemRejected.classList.remove("menu-toggle");
 
-    function addAllJobs() {
-      for (let i = 0; i < totalJobCollection.length; i++) {
-        totalJobCollection[i].classList.remove("hidden");
-      }
-    }
-    addAllJobs();
-  } else if (id === "menu-item-interview") {
-    getElement("menu-item-all").classList.remove("menu-toggle");
-    getElement("menu-item-interview").classList.add("menu-toggle");
-    getElement("menu-item-rejected").classList.remove("menu-toggle");
+    const selected = document.getElementById(id);
 
-    function removeAllJobs() {
-      for (let i = 0; i < totalJobCollection.length; i++) {
-        totalJobCollection[i].classList.add("hidden");
-      }
 
-      if (totalInterviewCollection.length == 0) {
-        let emtyJob = getElement("emty-job");
-        let interviewContainer = getElement("job-cards");
-        interviewContainer.append(emtyJob);
-        emtyJob.style.display = "block";
-        getElement("emty-job-rejected").classList.add("hidden")
-      } else {
-        getElement("emty-job").style.display = "none";
-        getElement("emty-job-interview").classList.remove("hidden");
-        getElement("toggling-container").classList.remove("hidden")
-        for (const item of totalInterviewCollection) {
-        }
+    currentStatus = id
 
-      }
-    }
+    selected.classList.add("menu-toggle");
 
-    removeAllJobs();
 
-    function interviewCount() {}
-    interviewCount();
-  } else if (id === "menu-item-rejected") {
-    getElement("menu-item-all").classList.remove("menu-toggle");
-    getElement("menu-item-interview").classList.remove("menu-toggle");
-    getElement("menu-item-rejected").classList.add("menu-toggle");
+    if(id == "menu-item-interview") {
+        jobsCards.classList.add("hidden");
+        filterContainer.classList.remove("hidden");
+        renderInterview()
+    }  else if(id == "menu-item-all") {
+        jobsCards.classList.remove("hidden");
+        filterContainer.classList.add("hidden");
 
-    function removeAllJobs() {
-      for (let i = 0; i < totalJobCollection.length; i++) {
-        totalJobCollection[i].classList.add("hidden");
-      }
-
-      if (totalRejectedCollection.length == 0) {
-        let emtyJob = getElement("emty-job");
-        let rejectedContainer = getElement("job-cards");
-        rejectedContainer.append(emtyJob);
-        emtyJob.style.display = "block";
-        getElement("emty-job-interview").classList.add("hidden")
-      } else {
-        getElement("emty-job").style.display = "none";
-        getElement("emty-job-rejected").classList.remove("hidden");
-        getElement("toggling-container").classList.remove("hidden")
-        for (const item of totalRejectedCollection) {
-
-        }
+    }  else if(id == "menu-item-rejected") {
+        jobsCards.classList.add("hidden");
+        filterContainer.classList.remove("hidden");
+        renderRejected()
         
-      }
     }
 
-    removeAllJobs();
-  }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
