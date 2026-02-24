@@ -47,16 +47,16 @@
 
 
     <!-- main section -->
-    <main class="max-w-277.5 w-111/160 m-auto mt-15">
+    <main class="main-container max-w-277.5 w-111/160 m-auto mt-15">
         <section class="avilable-job flex justify-between">
             <h3 class="font-semibold text-2xl">Available Jobs</h3>
-            <p class="text-[#64748B]">8 Jobs</p>
+            <p id="jobs" class="text-[#64748B]">8 Jobs</p>
         </section>
 
         <!-- toggling menu -->
         <section id="toggle-menu" class="job-menu flex pt-6 pb-4">
             <div onclick="toggleStyle('menu-item-all')" id="menu-item-all"
-                class="px-8 py-2.5 font-semibold text-[12px] cursor-pointer">
+                class="px-8 py-2.5 menu-toggle font-semibold text-[12px] cursor-pointer">
                 <p>All</p>
             </div>
 
@@ -78,24 +78,27 @@
              
          </section>
 
+         <!-- ------------------------------- 
+         Job Card Section
+         --------------------------------- -->
+
         <section id="job-cards" class="job-cards">
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp1</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">TechFlow Solutions</h3>
+                        <p class="text-[#64748B] title">Senior React Native Developer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">New York . Full-Time . 140,000–$185,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Lead the development of high-performance mobile apps. Focus on clean architecture and mentoring junior developers.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -108,20 +111,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp2</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">AppVision Studio</h3>
+                        <p class="text-[#64748B] title">Mobile App Developer (React Native)</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Remote . Full-Time . $110,000–$150,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Design and build user-friendly interfaces for fintech clients. Experience with Redux and TypeScript is required</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -134,20 +136,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp3</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">Global Connect Co.</h3>
+                        <p class="text-[#64748B] title">Full-Stack Mobile Engineer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Remote . Full-Time . $125,000–$165,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Work on a large-scale social networking app. Responsible for integrating REST APIs and optimizing app performance.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -160,20 +161,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp4</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">HealthSync Systems</h3>
+                        <p class="text-[#64748B] title">React Native Specialist</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Los Angel . Full-Time . $135,000–$170,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Develop secure, HIPAA-compliant healthcare applications. Collaboration with UI/UX designers is a key part of the role.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -186,20 +186,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp5</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">E-Comm Prime</h3>
+                        <p class="text-[#64748B] title">Lead React Native Developer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">London . Full-Time . $150,000–$190,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Scalable mobile commerce solutions. Expertise in pushing updates via CodePush and managing App Store deployments.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -212,20 +211,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp6</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">StreamLine Media</h3>
+                        <p class="text-[#64748B] title">React Native UI Engineer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Remote . Full-Time . $115,000–$155,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Create smooth animations and high-quality UI components for a global streaming platform.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -238,20 +236,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp7</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">FinEdge Group</h3>
+                        <p class="text-[#64748B] title">Mobile Software Engineer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Remote . Full-Time . $130,000–$175,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Build robust financial tools. Deep understanding of mobile security and offline data persistence is essential.</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -264,20 +261,19 @@
             <section class="job-card p-6">
                 <div class="card-title flex justify-between">
                     <div class="card-title-left">
-                        <h3 class="job-name font-semibold text-[18px]">Mobile First Corp8</h3>
-                        <p class="text-[#64748B]">React Native Developer</p>
+                        <h3 class="job-name font-semibold text-[18px]">TravelGo International</h3>
+                        <p class="text-[#64748B] title">Senior Mobile Developer</p>
                     </div>
                     <div class="card-title-right">
                         <i class="fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">Remote . Full-Time . $130000-$175000</p>
+                <p class="py-5 text-[#64748B] salary">Itali, Roam . Full-Time . $120,000–$160,000</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">NOT APPLIED</button>
-                    <p class="text-[14px] mb-5">Build cross-platform mobile applications using React Native. Work on
-                        products used by millions of users worldwide.</p>
+                    <p class="job-details text-[14px] mb-5">Support cross-platform features for a travel booking app. Must be proficient in native modules (Bridge).</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">

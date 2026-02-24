@@ -1,94 +1,234 @@
 let totalInterviewCollection = [];
 let totalRejectedCollection = [];
-let currentStatus = "";
-
-let totalJobCollection = getElement("job-cards");
-let totalJobs =  document.getElementById("total-jobs");
-let totalInterview = document.getElementById("interview-jobs");
-let totalRejected = document.getElementById("rejected-jobs");
-
-const menuItemAll = document.getElementById("menu-item-all");
-const menuItemInterview = document.getElementById("menu-item-interview");
-const menuItemRejected = document.getElementById("menu-item-rejected"); 
+let currentStatus = "all";
 
 const filterContainer = document.getElementById("filter-container");
 const jobsCards = document.getElementById("job-cards");
 const mainContainer = document.querySelector("main");
 
+let totalJobs = document.getElementById("total-jobs");
+let totalInterview = document.getElementById("interview-jobs");
+let totalRejected = document.getElementById("rejected-jobs");
+
+const menuItemAll = document.getElementById("menu-item-all");
+const menuItemInterview = document.getElementById("menu-item-interview");
+const menuItemRejected = document.getElementById("menu-item-rejected");
+
+
+let jobs = document.getElementById("jobs");
+
 
 function countJobs() {
-    totalJobs.innerText = totalJobCollection.classList.length;
-    totalInterview.innerText = totalInterviewCollection.length;
-    totalRejected.innerText = totalRejectedCollection.length;
+  totalJobs.innerText = jobsCards.children.length;
+  totalInterview.innerText = totalInterviewCollection.length;
+  totalRejected.innerText = totalRejectedCollection.length;
+}
+countJobs();
 
+function toggleStyle(id) {
+  menuItemAll.classList.remove("menu-toggle");
+  menuItemInterview.classList.remove("menu-toggle");
+  menuItemRejected.classList.remove("menu-toggle");
+
+  const selected = document.getElementById(id);
+  selected.classList.add("menu-toggle");
+
+  currentStatus = id;
+
+  countJobs();
+  
+  
+  if (id === "menu-item-all") {
+      jobsCards.classList.remove("hidden");
+      filterContainer.classList.add("hidden");
+      jobs.innerText = jobsCards.children.length + " jobs";
+    } else if (id === "menu-item-interview") {
+        jobsCards.classList.add("hidden");
+        filterContainer.classList.remove("hidden");
+        jobs.innerText = totalInterviewCollection.length + " jobs"
+        renderInterview();
+
+    } else if (id === "menu-item-rejected") {
+        jobsCards.classList.add("hidden");
+        filterContainer.classList.remove("hidden");
+        jobs.innerText = totalRejectedCollection.length + " jobs"
+        renderRejected();
+    }
+}
+
+document.querySelector("main").addEventListener("click", function (event) {
+
+  if (event.target.classList.contains("interview-btn")) {
+    let selectedCard = event.target.parentNode.parentNode;
+    let jobName = selectedCard.querySelector(".job-name").innerText;
+    selectedCard.querySelector(".not-applied").innerText = "INTERVIEW";
+    selectedCard.querySelector(".not-applied").classList.add("interview-status");
+    selectedCard.querySelector(".not-applied").classList.remove("rejected-status");
+    
+    
+    const cardDetails = {
+        jobName,
+        status: "INTERVIEW"
+    };
+    totalRejectedCollection = totalRejectedCollection.filter(
+        (item) => item.jobName !== cardDetails.jobName,
+    );
+    let jobExist = totalInterviewCollection.find(
+        (item) => item.jobName == cardDetails.jobName,
+    );
+    
+    if (!jobExist) {
+        totalInterviewCollection.push(cardDetails);
+    }
+    
+    
+    if (currentStatus == 'menu-item-rejected') {
+        renderRejected()
+    }
+    
+    
+    countJobs();
+
+    if(currentStatus == "menu-item-rejected") {
+            jobs.innerText =  totalRejectedCollection.length
+        }
+
+
+
+  } else if (event.target.classList.contains("rejected-btn")) {
+    let selectedCard = event.target.parentNode.parentNode;
+    let jobName = selectedCard.querySelector(".job-name").innerText;
+    selectedCard.querySelector(".not-applied").innerText = "REJECTED";
+    selectedCard.querySelector(".not-applied").classList.add("rejected-status");
+    selectedCard.querySelector(".not-applied").classList.remove("interview-status");
+    
+    const cardDetails = {
+        jobName,
+        status: "REJECTED"
+    };
+    totalInterviewCollection = totalInterviewCollection.filter(
+        (item) => item.jobName !== cardDetails.jobName,
+    );
+    let jobExist = totalRejectedCollection.find(
+        (item) => item.jobName == cardDetails.jobName,
+    );
+    if (!jobExist) {
+        totalRejectedCollection.push(cardDetails);
+    }
+    
+    if (currentStatus == 'menu-item-interview') {
+        renderInterview()
+    }
+    
 }
 countJobs()
 
-function toggleStyle(id) {
-    menuItemAll.classList.remove("menu-toggle");
-    menuItemInterview.classList.remove("menu-toggle");
-    menuItemRejected.classList.remove("menu-toggle");
-
-    const selected = document.getElementById(id);
+if(currentStatus == "menu-item-interview") {
+            jobs.innerText =  totalInterviewCollection.length
+            
+        }
 
 
-    currentStatus = id
+});
 
-    selected.classList.add("menu-toggle");
+function renderInterview() {
+  filterContainer.innerHTML = "";
+
+  if (totalInterviewCollection.length == 0) {
+
+    filterContainer.innerHTML = `<section id="emty-job" class="emty-job py-27.5 m-auto max-w-277.5 w-111/160 flex-col gap-5">
+                 <img class="w-25 block h-auto m-auto" src="./Asset/emty-file.png" alt="">
+                 <div class="emty-content text-center">
+                     <h3 class="font-semibold text-2xl">No Jobs Available</h3>
+                     <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+                 </div>
+             </section>`;
+
+  } else {
+    for (const item of totalInterviewCollection) {
 
 
-    if(id == "menu-item-interview") {
-        jobsCards.classList.add("hidden");
-        filterContainer.classList.remove("hidden");
-        renderInterview()
-    }  else if(id == "menu-item-all") {
-        jobsCards.classList.remove("hidden");
-        filterContainer.classList.add("hidden");
+      let div = document.createElement("div");
+      div.className = "job-card p-6";
+      div.innerHTML = `
+            <div class="card-title flex justify-between">
+                    <div class="card-title-left">
+                        <h3 class="job-name font-semibold text-[18px]">${item.jobName}</h3>
+                        <p class="text-[#64748B]">${item.title}</p>
+                    </div>
+                    <div class="card-title-right">
+                        <i class="fa-regular fa-trash-can text-[#64748B]"></i>
+                    </div>
+                </div>
 
-    }  else if(id == "menu-item-rejected") {
-        jobsCards.classList.add("hidden");
-        filterContainer.classList.remove("hidden");
-        renderRejected()
-        
+                <p class="py-5 text-[#64748B]">${item.salary}</p>
+                <!-- application status -->
+                <div class="application-status">
+                    <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
+                    <p class="text-[14px] mb-5">${item.jobDetails}</p>
+                </div>
+                <!-- interview and reject buttons -->
+                <div class="buttons flex gap-2">
+                    <button
+                        class="interview-btn px-3 py-2 text-[#10B981] border border-[#10B981] rounded-lg">INTERVIEW</button>
+                    <button
+                        class="rejected-btn px-3 py-2 text-[#EF4444] border border-[#EF4444] rounded-lg">REJECTED</button>
+                </div>
+            `;
+      filterContainer.append(div);
     }
-
-
-
+  }
 }
 
 
 
 
 
+function renderRejected() {
+  filterContainer.innerHTML = "";
+
+  if (totalRejectedCollection.length == 0) {
+
+    filterContainer.innerHTML = `<section id="emty-job" class="emty-job py-27.5 m-auto max-w-277.5 w-111/160 flex-col gap-5">
+                 <img class="w-25 block h-auto m-auto" src="./Asset/emty-file.png" alt="">
+                 <div class="emty-content text-center">
+                     <h3 class="font-semibold text-2xl">No Jobs Available</h3>
+                     <p class="text-[#64748B]">Check back soon for new job opportunities</p>
+                 </div>
+             </section>`;
+
+  } else {
+    for (const item of totalRejectedCollection) {
 
 
+      let div = document.createElement("div");
+      div.className = "job-card p-6";
+      div.innerHTML = `
+            <div class="card-title flex justify-between">
+                    <div class="card-title-left">
+                        <h3 class="job-name font-semibold text-[18px]">${item.jobName}</h3>
+                        <p class="text-[#64748B]">${item.title}</p>
+                    </div>
+                    <div class="card-title-right">
+                        <i class="fa-regular fa-trash-can text-[#64748B]"></i>
+                    </div>
+                </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <p class="py-5 text-[#64748B]">${item.salary}</p>
+                <!-- application status -->
+                <div class="application-status">
+                    <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
+                    <p class="text-[14px] mb-5">${item.jobDetails}</p>
+                </div>
+                <!-- interview and reject buttons -->
+                <div class="buttons flex gap-2">
+                    <button
+                        class="interview-btn px-3 py-2 text-[#10B981] border border-[#10B981] rounded-lg">INTERVIEW</button>
+                    <button
+                        class="rejected-btn px-3 py-2 text-[#EF4444] border border-[#EF4444] rounded-lg">REJECTED</button>
+                </div>
+            `;
+      filterContainer.append(div);
+    }
+  }
+}
