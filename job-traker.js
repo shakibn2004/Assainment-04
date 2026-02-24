@@ -58,9 +58,16 @@ function toggleStyle(id) {
 
 document.querySelector("main").addEventListener("click", function (event) {
 
-  if (event.target.classList.contains("interview-btn")) {
-    let selectedCard = event.target.parentNode.parentNode;
+    let selectedCard = event.target.closest(".job-card");
+    if (!selectedCard) return;
+    
+
+    if (event.target.classList.contains("interview-btn")) {
+
     let jobName = selectedCard.querySelector(".job-name").innerText;
+    let title = selectedCard.querySelector(".title").innerText;
+    let salary = selectedCard.querySelector(".salary").innerText;
+    let jobDetails = selectedCard.querySelector(".job-details").innerText;
     selectedCard.querySelector(".not-applied").innerText = "INTERVIEW";
     selectedCard.querySelector(".not-applied").classList.add("interview-status");
     selectedCard.querySelector(".not-applied").classList.remove("rejected-status");
@@ -68,7 +75,10 @@ document.querySelector("main").addEventListener("click", function (event) {
     
     const cardDetails = {
         jobName,
-        status: "INTERVIEW"
+        status: "INTERVIEW",
+        title,
+        salary,
+        jobDetails
     };
     totalRejectedCollection = totalRejectedCollection.filter(
         (item) => item.jobName !== cardDetails.jobName,
@@ -90,21 +100,28 @@ document.querySelector("main").addEventListener("click", function (event) {
     countJobs();
 
     if(currentStatus == "menu-item-rejected") {
-            jobs.innerText =  totalRejectedCollection.length
+            jobs.innerText =  totalRejectedCollection.length + " jobs"
         }
 
 
 
   } else if (event.target.classList.contains("rejected-btn")) {
-    let selectedCard = event.target.parentNode.parentNode;
+
+    
     let jobName = selectedCard.querySelector(".job-name").innerText;
+    let title = selectedCard.querySelector(".title").innerText;
+    let salary = selectedCard.querySelector(".salary").innerText;
+    let jobDetails = selectedCard.querySelector(".job-details").innerText;
     selectedCard.querySelector(".not-applied").innerText = "REJECTED";
     selectedCard.querySelector(".not-applied").classList.add("rejected-status");
     selectedCard.querySelector(".not-applied").classList.remove("interview-status");
     
     const cardDetails = {
         jobName,
-        status: "REJECTED"
+        status: "REJECTED",
+        title,
+        salary,
+        jobDetails
     };
     totalInterviewCollection = totalInterviewCollection.filter(
         (item) => item.jobName !== cardDetails.jobName,
@@ -121,15 +138,73 @@ document.querySelector("main").addEventListener("click", function (event) {
     }
     
 }
-countJobs()
+countJobs();
 
-if(currentStatus == "menu-item-interview") {
-            jobs.innerText =  totalInterviewCollection.length
-            
+if (currentStatus == "menu-item-interview") {
+    renderInterview();
+    jobs.innerText = totalInterviewCollection.length + " jobs";
+} 
+else if (currentStatus == "menu-item-rejected") {
+    renderRejected();
+    jobs.innerText = totalRejectedCollection.length + " jobs";
+}
+
+
+
+// removing card on clicking on delete button
+
+if (event.target.classList.contains("delete-btn")) {
+
+    let selectedCard = event.target.closest(".job-card");
+    if (!selectedCard) return;
+
+    let jobName = selectedCard.querySelector(".job-name").innerText;
+
+    totalInterviewCollection = totalInterviewCollection.filter(
+        (item) => item.jobName !== jobName
+    );
+
+    totalRejectedCollection = totalRejectedCollection.filter(
+        (item) => item.jobName !== jobName
+    );
+
+
+    let allCards = jobsCards.querySelectorAll(".job-card");
+
+    allCards.forEach(card => {
+        let name = card.querySelector(".job-name").innerText;
+        if (name === jobName) {
+            card.remove();
         }
+    });
+
+
+    if (currentStatus === "menu-item-interview") {
+        renderInterview();
+        jobs.innerText = totalInterviewCollection.length + " jobs";
+    }
+
+    else if (currentStatus === "menu-item-rejected") {
+        renderRejected();
+        jobs.innerText = totalRejectedCollection.length + " jobs";
+    }
+
+    countJobs();
+}
+
+
+
+
+
+    
 
 
 });
+
+
+    
+
+
 
 function renderInterview() {
   filterContainer.innerHTML = "";
@@ -154,18 +229,18 @@ function renderInterview() {
             <div class="card-title flex justify-between">
                     <div class="card-title-left">
                         <h3 class="job-name font-semibold text-[18px]">${item.jobName}</h3>
-                        <p class="text-[#64748B]">${item.title}</p>
+                        <p class="title text-[#64748B]">${item.title}</p>
                     </div>
                     <div class="card-title-right">
-                        <i class="fa-regular fa-trash-can text-[#64748B]"></i>
+                        <i class="delete-btn fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">${item.salary}</p>
+                <p class="salary py-5 text-[#64748B]">${item.salary}</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
-                    <p class="text-[14px] mb-5">${item.jobDetails}</p>
+                    <p class="job-details text-[14px] mb-5">${item.jobDetails}</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">
@@ -207,18 +282,18 @@ function renderRejected() {
             <div class="card-title flex justify-between">
                     <div class="card-title-left">
                         <h3 class="job-name font-semibold text-[18px]">${item.jobName}</h3>
-                        <p class="text-[#64748B]">${item.title}</p>
+                        <p class="title text-[#64748B]">${item.title}</p>
                     </div>
                     <div class="card-title-right">
-                        <i class="fa-regular fa-trash-can text-[#64748B]"></i>
+                        <i class="delete-btn fa-regular fa-trash-can text-[#64748B]"></i>
                     </div>
                 </div>
 
-                <p class="py-5 text-[#64748B]">${item.salary}</p>
+                <p class="salary py-5 text-[#64748B]">${item.salary}</p>
                 <!-- application status -->
                 <div class="application-status">
                     <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
-                    <p class="text-[14px] mb-5">${item.jobDetails}</p>
+                    <p class="job-details text-[14px] mb-5">${item.jobDetails}</p>
                 </div>
                 <!-- interview and reject buttons -->
                 <div class="buttons flex gap-2">

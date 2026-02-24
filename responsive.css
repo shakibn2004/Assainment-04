@@ -1,0 +1,45 @@
+@media screen and (max-width: 572px) {
+    header {
+        width: 90%;
+        margin-top: 40px;
+    }
+
+    main {
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .job-menu {
+        justify-content: center;
+        gap: 30px;
+    }
+
+
+    .job-card {
+        padding: 20px 10px;
+        border: 1px solid #10B981;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .job-card .title {
+        margin-top: 7px;
+    }
+
+    .job-card .salary {
+        padding: 10px 0 20px 0;
+    }
+
+    .job-card .not-applied {
+        margin-bottom: 20px;
+    }
+
+    .job-card .buttons {
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .job-card .buttons button {
+        padding: 10px 30px;
+    }
+}
