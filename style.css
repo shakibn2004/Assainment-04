@@ -7,7 +7,6 @@
 .interview-status {
     padding: 8px 12px;
     color: #fff;
-    /* border: 1px solid #10B981; */
     border-radius: 8px;
     background: #10B981;
 }
@@ -20,5 +19,18 @@
 
 .not-applied {
     margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #522dd8;
 }
+
+.interview-btn:hover {
+    background: #10B981;
+    color: #fff;
+}
+
+.rejected-btn:hover {
+    background: #EF4444;
+    color: #fff;
+}
+
 
