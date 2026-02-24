@@ -6,13 +6,19 @@
 
 .interview-status {
     padding: 8px 12px;
-    color: #10B981;
-    border: 1px solid #10B981;
+    color: #fff;
+    /* border: 1px solid #10B981; */
     border-radius: 8px;
+    background: #10B981;
 }
 .rejected-status {
     padding: 8px 12px;
-    color: #EF4444;
-    border: 1px solid #EF4444;
+    color: #fff;
     border-radius: 8px;
+    background: #EF4444;;
 }
+
+.not-applied {
+    margin-bottom: 20px;
+}
+

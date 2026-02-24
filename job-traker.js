@@ -45,17 +45,20 @@ function toggleStyle(id) {
     } else if (id === "menu-item-interview") {
         jobsCards.classList.add("hidden");
         filterContainer.classList.remove("hidden");
-        jobs.innerText = totalInterviewCollection.length + " jobs"
+        jobs.innerText = totalInterviewCollection.length + " jobs";
         renderInterview();
 
     } else if (id === "menu-item-rejected") {
         jobsCards.classList.add("hidden");
         filterContainer.classList.remove("hidden");
-        jobs.innerText = totalRejectedCollection.length + " jobs"
+        jobs.innerText = totalRejectedCollection.length + " jobs";
         renderRejected();
     }
 }
 
+
+
+// bubling delegation
 document.querySelector("main").addEventListener("click", function (event) {
 
     let selectedCard = event.target.closest(".job-card");
@@ -192,20 +195,10 @@ if (event.target.classList.contains("delete-btn")) {
     countJobs();
 }
 
-
-
-
-
-    
-
-
 });
 
 
-    
-
-
-
+// interview section cards rendering
 function renderInterview() {
   filterContainer.innerHTML = "";
 
@@ -221,6 +214,10 @@ function renderInterview() {
 
   } else {
     for (const item of totalInterviewCollection) {
+
+        let statusClass = item.status === "INTERVIEW" ? "interview-status" : "";
+      statusClass = item.status === "REJECTED" ? "rejected-status" : statusClass;
+
 
 
       let div = document.createElement("div");
@@ -239,7 +236,7 @@ function renderInterview() {
                 <p class="salary py-5 text-[#64748B]">${item.salary}</p>
                 <!-- application status -->
                 <div class="application-status">
-                    <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
+                    <button class="btn not-applied interview-status px-3 py-2">${item.status}</button>
                     <p class="job-details text-[14px] mb-5">${item.jobDetails}</p>
                 </div>
                 <!-- interview and reject buttons -->
@@ -257,8 +254,7 @@ function renderInterview() {
 
 
 
-
-
+// rejected section cards rendering
 function renderRejected() {
   filterContainer.innerHTML = "";
 
@@ -292,7 +288,7 @@ function renderRejected() {
                 <p class="salary py-5 text-[#64748B]">${item.salary}</p>
                 <!-- application status -->
                 <div class="application-status">
-                    <button id="not-applied" class="btn not-applied px-3 py-2">${item.status}</button>
+                    <button class="btn not-applied rejected-status px-3 py-2">${item.status}</button>
                     <p class="job-details text-[14px] mb-5">${item.jobDetails}</p>
                 </div>
                 <!-- interview and reject buttons -->
