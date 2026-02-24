@@ -25,7 +25,10 @@ function countJobs() {
 }
 countJobs();
 
+
+// toggling tab
 function toggleStyle(id) {
+
   menuItemAll.classList.remove("menu-toggle");
   menuItemInterview.classList.remove("menu-toggle");
   menuItemRejected.classList.remove("menu-toggle");
@@ -37,18 +40,22 @@ function toggleStyle(id) {
 
   countJobs();
   
-  
   if (id === "menu-item-all") {
+
       jobsCards.classList.remove("hidden");
       filterContainer.classList.add("hidden");
       jobs.innerText = jobsCards.children.length + " jobs";
+      renderAll()
+
     } else if (id === "menu-item-interview") {
+
         jobsCards.classList.add("hidden");
         filterContainer.classList.remove("hidden");
         jobs.innerText = totalInterviewCollection.length + " jobs";
         renderInterview();
 
     } else if (id === "menu-item-rejected") {
+
         jobsCards.classList.add("hidden");
         filterContainer.classList.remove("hidden");
         jobs.innerText = totalRejectedCollection.length + " jobs";
@@ -75,7 +82,6 @@ document.querySelector("main").addEventListener("click", function (event) {
     selectedCard.querySelector(".not-applied").classList.add("interview-status");
     selectedCard.querySelector(".not-applied").classList.remove("rejected-status");
     
-    
     const cardDetails = {
         jobName,
         status: "INTERVIEW",
@@ -83,6 +89,9 @@ document.querySelector("main").addEventListener("click", function (event) {
         salary,
         jobDetails
     };
+
+    updateAllTabStatus(jobName, "INTERVIEW");
+
     totalRejectedCollection = totalRejectedCollection.filter(
         (item) => item.jobName !== cardDetails.jobName,
     );
@@ -94,11 +103,9 @@ document.querySelector("main").addEventListener("click", function (event) {
         totalInterviewCollection.push(cardDetails);
     }
     
-    
     if (currentStatus == 'menu-item-rejected') {
         renderRejected()
     }
-    
     
     countJobs();
 
@@ -126,6 +133,11 @@ document.querySelector("main").addEventListener("click", function (event) {
         salary,
         jobDetails
     };
+
+
+    updateAllTabStatus(jobName, "REJECTED");
+
+
     totalInterviewCollection = totalInterviewCollection.filter(
         (item) => item.jobName !== cardDetails.jobName,
     );
@@ -155,7 +167,6 @@ else if (currentStatus == "menu-item-rejected") {
 
 
 // removing card on clicking on delete button
-
 if (event.target.classList.contains("delete-btn")) {
 
     let selectedCard = event.target.closest(".job-card");
@@ -171,15 +182,17 @@ if (event.target.classList.contains("delete-btn")) {
         (item) => item.jobName !== jobName
     );
 
-
     let allCards = jobsCards.querySelectorAll(".job-card");
 
-    allCards.forEach(card => {
-        let name = card.querySelector(".job-name").innerText;
-        if (name === jobName) {
-            card.remove();
-        }
-    });
+    // backward loop are driven, beacause we are removing items from the dom, if we loop forward, 
+    // the index will get messed up after removing an item
+    for (let i = allCards.length - 1; i >= 0; i--) {
+    let name = allCards[i].querySelector(".job-name").innerText;
+
+    if (name === jobName) {
+        allCards[i].remove();
+    }
+    }
 
 
     if (currentStatus === "menu-item-interview") {
@@ -253,7 +266,6 @@ function renderInterview() {
 }
 
 
-
 // rejected section cards rendering
 function renderRejected() {
   filterContainer.innerHTML = "";
@@ -302,4 +314,37 @@ function renderRejected() {
       filterContainer.append(div);
     }
   }
+}
+
+
+// Rendering all tab cards after clicking on all tab
+function updateAllTabStatus(jobName, newStatus) {
+
+    let allCards = jobsCards.querySelectorAll(".job-card");
+
+    for (let i = 0; i < allCards.length; i++) {
+
+        let card = allCards[i];
+        let name = card.querySelector(".job-name").innerText;
+
+        if (name === jobName) {
+
+            let statusBtn = card.querySelector(".not-applied");
+
+            statusBtn.innerText = newStatus;
+
+            statusBtn.classList.remove("interview-status");
+            statusBtn.classList.remove("rejected-status");
+
+            if (newStatus === "INTERVIEW") {
+                statusBtn.classList.add("interview-status");
+            }
+
+            if (newStatus === "REJECTED") {
+                statusBtn.classList.add("rejected-status");
+            }
+
+            break; 
+        }
+    }
 }
