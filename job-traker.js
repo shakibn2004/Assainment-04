@@ -228,9 +228,17 @@ function renderInterview() {
   } else {
     for (const item of totalInterviewCollection) {
 
-        let statusClass = item.status === "INTERVIEW" ? "interview-status" : "";
-      statusClass = item.status === "REJECTED" ? "rejected-status" : statusClass;
-
+        if (item.status === "INTERVIEW") {
+          statusClass = "interview-status";
+        } else {
+          statusClass = "";
+        }
+        
+        if (item.status === "REJECTED") {
+          statusClass = "rejected-status";
+        } else {
+          statusClass = statusClass; 
+        }
 
 
       let div = document.createElement("div");
